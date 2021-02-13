@@ -17,6 +17,6 @@ public class Game {
         players = new HashMap<String, Player>();
     }
 
-    
+
 
 }
