@@ -1,5 +1,6 @@
 package GameModel;
 
+import Deck52.Deck;
 import Player.Player;
 
 import java.util.ArrayList;
@@ -11,7 +12,9 @@ public class Game {
     static int moneyPot;
     private double buyInAmount;
     private boolean aceHigh;
-    //HashMap<String, Player> players;
+    private Deck cardDeck;
+    //private HashMap<String, Player> players;
+    //private ArrayList<Player> players;
 
     private Player p1;
     private Player p2;
@@ -22,14 +25,26 @@ public class Game {
         buyInAmount = 0;
         p1 = new Player(p1Name);
         p2 = new Player(p2Name);
+
+        cardDeck = new Deck();
+        cardDeck.populateDeck();
+
+        for(int i = 0; i < 2; i++){
+            p1.addCard(cardDeck.drawCard());
+            p2.addCard(cardDeck.drawCard());
+        }
     }
 
     public void setAceValue(boolean aceValue){
         aceHigh = aceValue;
     }
 
-    public String showPlayerCards(String playerName){
-        if(p1.getName().equals(playerName))
+    public String playerTurn(boolean isPlayerOne, boolean hit){
+        return "";
+    }
+
+    public String showPlayerCards(boolean isPlayerOne){
+        if(isPlayerOne)
             return p1.getHand();
         else
             return p2.getHand();
