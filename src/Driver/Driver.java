@@ -45,10 +45,13 @@ public class Driver {
 
          //main game loop
          do {
+
+            boolean p1_lost;
+            boolean p2_lost;
+
             //take bets from both players
             game.takeBets(true);
             game.takeBets(false);
-
 
             //handle player hitting
             playerHits(input, game);

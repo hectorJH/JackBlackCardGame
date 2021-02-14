@@ -113,6 +113,7 @@ public class Game {
                 moneyPot += buyInAmount;
             } catch (Exception e) {
                 e.getMessage();
+                winnerFound = true;
                 return playerLostGame(isPlayerOne);
             }
         } else {
@@ -121,6 +122,7 @@ public class Game {
                 moneyPot += buyInAmount;
             } catch (Exception e) {
                 e.getMessage();
+                winnerFound = true;
                 return playerLostGame(isPlayerOne);
             }
         }
