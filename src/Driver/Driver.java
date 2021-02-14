@@ -11,5 +11,7 @@ public class Driver {
       System.out.println("Drew card : " + c.toString());
       System.out.println();
       System.out.println(d.toString());
+
+      System.out.println("");
    }
 }
