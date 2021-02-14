@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Driver {
-   public static void main (String args[]) {
+   public static void main(String args[]) {
       System.out.println("Hello World!");
 
       Deck deck;
@@ -53,19 +53,50 @@ public class Driver {
             game.takeBets(true);
             game.takeBets(false);
 
+<<<<<<< Updated upstream
             //handle player hitting
             playerHits(input, game);
+=======
+
+            //handles players hitting
+            boolean hit = true;
+            for (int i = 0; i < 2; i++) {
+               do {
+                  System.out.println("Player " + i + " do you want to hit? (y/n)");
+                  String result = input.nextLine();
+
+                  if (result.equalsIgnoreCase("y")) {
+                     if (i == 0)
+                        game.playerHit(true);
+                     else
+                        game.playerHit(false);
+                  } else if (result.equalsIgnoreCase("n"))
+                     hit = false;
+                  else
+                     System.out.println("That was an invalid command.");
+
+               } while (hit);
+            }
+>>>>>>> Stashed changes
 
             //print out current hands
             System.out.println(game.showPlayerCards(true));
             System.out.println(game.showPlayerCards(false));
 
+<<<<<<< Updated upstream
             //how do users want to use their bomb cards
             handleBombs(input,game);
 
             //compares the hands move winnings to winner
             String roundWinner = game.compareHand();
             System.out.println(roundWinner);
+=======
+
+            for (int i = 0; i < 2; i++) {
+               System.out.println("");
+            }
+            //how to use the bomb.
+>>>>>>> Stashed changes
 
             //check if a player has lost all their money.
             //restart the round
@@ -73,18 +104,17 @@ public class Driver {
             //how to check if the game has ended
             endGame = true;
 
-         }while(!endGame);
+         } while (!endGame);
 
 
          System.out.println("Would you like to play again?");
          rematch = input.nextLine();
 
-      }while (rematch.equalsIgnoreCase("Y"));
+      } while (rematch.equalsIgnoreCase("Y"));
 
    }
 
-   public static Game addPlayers(Scanner input)
-   {
+   public static Game addPlayers(Scanner input) {
       String player1;
       String player2;
       System.out.println("Enter player 1's name");
@@ -101,13 +131,14 @@ public class Driver {
       System.out.println("Are aces high or low?: H for High, L for low");
       response = input.nextLine();
 
-      if(response.equalsIgnoreCase("H"))
+      if (response.equalsIgnoreCase("H"))
          return new Game(player1, player2, buyin, true);
          //else if (response.equalsIgnoreCase("L"))
       else
-         return new Game(player1, player2, buyin,false );
+         return new Game(player1, player2, buyin, false);
    }
 
+<<<<<<< Updated upstream
    public static void playerHits(Scanner input, Game game)
    {
       //handles players hitting
@@ -159,24 +190,29 @@ public class Driver {
    }
    public static void helloPlayers()
    {
+=======
+   public static void helloPlayers() {
+>>>>>>> Stashed changes
       System.out.println("\nWelcome to Jack Black\n");
       System.out.println("Explain Rules here");
    }
+
    public static void wildCardDecision(int player, Scanner kb, Game game) {
       String input;
       System.out.println("Player 1, Do you want to keep your wild card? " +
               "Y if yes," + "\nor N if you wish to give it to your enememy.");
       input = kb.nextLine();
 
-//   if (player == 1) {
-//      if (input.toLowerCase().charAt(0) == 'y')
-//         game.wildCardDecision(true, true);
-//      else
-//         game.wildCardDecision(true, false);
-//   } else {
-//      if (input.toLowerCase().charAt(0) == 'y')
-//         game.wildCardDecision(false, true);
-//      else
-//         game.wildCardDecision(false, false);
+      if (player == 1) {
+         if (input.toLowerCase().charAt(0) == 'y')
+            game.wildCardDecision(true, true);
+         else
+            game.wildCardDecision(true, false);
+      } else {
+         if (input.toLowerCase().charAt(0) == 'y')
+            game.wildCardDecision(false, true);
+         else
+            game.wildCardDecision(false, false);
+      }
    }
 }
