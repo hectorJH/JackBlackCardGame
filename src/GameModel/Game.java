@@ -15,17 +15,17 @@ public class Game {
     private Deck cardDeck;
     private Player p1;
     private Player p2;
+    private int target
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
     public Game(String p1Name, String p2Name, double buyInMoney,
                 boolean aceIsValue) {
+        target = 21;
         moneyPot = 0;
         buyInAmount = buyInMoney;
         aceHigh = aceIsValue;
         p1 = new Player(p1Name);
         p2 = new Player(p2Name);
-
         cardDeck = new Deck();
         cardDeck.populateDeck();
 
@@ -36,14 +36,48 @@ public class Game {
     }
 
     public void playerHit(boolean isPlayerOne) {
-        if (isPlayerOne) {
+        if(isPlayerOne) {
             p1.addCard(cardDeck.drawCard());
-
             showPlayerCards(isPlayerOne);
         } else {
             p2.addCard(cardDeck.drawCard());
-
             showPlayerCards(isPlayerOne);
+        }
+    }
+
+    public void wildcardDecision(boolean isPlayerOne, boolean isBomb){
+        //need to be able to access player's wildcard and give it to another
+        //player
+
+        //need to be able to access a player's count, a player's wildcard,
+        // and a player's bomb
+        if(isPlayerOne){
+            if(isBomb)
+                p2.addBombCard(p1.getBombCard());
+            else
+                p1.protect();
+        } else {
+            if(isBomb)
+                p1.addBombCard(p2.getBombCard());
+            else
+                p2.protect();
+        }
+    }
+
+    public String compareHand(boolean isNormal){
+        double p1RoundResult = Math.abs(target - p1.getPlayerCount(aceHigh));
+        double p2RoundResult = Math.abs(target - p2.getPlayerCount(aceHigh));
+
+        if(isNormal) {
+            if (p1RoundResult < p2RoundResult)
+                return playerLostRound(false);
+            else
+                return playerLostRound(true);
+        } else {
+            if(p1.getPlayerCount(aceHigh) > p2.getPlayerCount(aceHigh))
+                return playerLostRound(false);
+            else
+                return playerLostRound(true);
         }
     }
 
@@ -54,6 +88,12 @@ public class Game {
             return p2.getHand();
     }
 
+    /**
+     * Used at the beginning of the round
+     *
+     * @param isPlayerOne
+     * @return
+     */
     public String takeBets(boolean isPlayerOne) {
         if (isPlayerOne) {
             try {
@@ -75,11 +115,14 @@ public class Game {
         return "\nBets have been placed";
     }
 
-    String playerLostRound (boolean isPlayerOne){
-        if (isPlayerOne)
+    String playerLostRound(boolean isPlayerOne) {
+        if (isPlayerOne) {
+            p2.handleWinnings(moneyPot);
             return "\n" + p2.getName() + " has won the round!";
-        else
+        } else {
+            p1.handleWinnings(moneyPot);
             return "\n" + p1.getName() + " has won the round!";
+        }
     }
 
     String playerLostGame(boolean isPlayerOne){
