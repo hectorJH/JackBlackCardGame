@@ -72,11 +72,15 @@ public class Driver {
                }while(hit);
             }
 
-            //calculate preliminaray scores
-            //for(int i = 0;)
+            //print out current hands
+            System.out.println(game.showPlayerCards(true));
+            System.out.println(game.showPlayerCards(false));
 
+            for(int i = 0; i < 2; i++)
+            {
+               System.out.println("");
+            }
             //how to use the bomb.
-
 
 
             endGame = true;
