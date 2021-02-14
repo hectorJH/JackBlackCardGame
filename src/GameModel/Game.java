@@ -40,6 +40,11 @@ public class Game {
     }
 
     public String playerTurn(boolean isPlayerOne, boolean hit){
+        if (isPlayerOne == true){
+
+        } else {
+            
+        }
 
 
         return "";
