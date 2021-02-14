@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Driver {
-   public static void main(String args[]) {
+   public static void main (String args[]) {
       System.out.println("Hello World!");
 
       Deck deck;
@@ -52,29 +52,10 @@ public class Driver {
             //take bets from both players
             game.takeBets(true);
             game.takeBets(false);
+
             //handle player hitting
             playerHits(input, game);
 
-
-            //handles players hitting
-            boolean hit = true;
-            for (int i = 0; i < 2; i++) {
-               do {
-                  System.out.println("Player " + i + " do you want to hit? (y/n)");
-                  String result = input.nextLine();
-
-                  if (result.equalsIgnoreCase("y")) {
-                     if (i == 0)
-                        game.playerHit(true);
-                     else
-                        game.playerHit(false);
-                  } else if (result.equalsIgnoreCase("n"))
-                     hit = false;
-                  else
-                     System.out.println("That was an invalid command.");
-
-               } while (hit);
-            }
             //print out current hands
             System.out.println(game.showPlayerCards(true));
             System.out.println(game.showPlayerCards(false));
@@ -86,29 +67,24 @@ public class Driver {
             String roundWinner = game.compareHand();
             System.out.println(roundWinner);
 
-            for (int i = 0; i < 2; i++) {
-               System.out.println("");
-            }
-            //how to use the bomb.
-
-
             //check if a player has lost all their money.
             //restart the round
 
             //how to check if the game has ended
             endGame = true;
 
-         } while (!endGame);
+         }while(!endGame);
 
 
          System.out.println("Would you like to play again?");
          rematch = input.nextLine();
 
-      } while (rematch.equalsIgnoreCase("Y"));
+      }while (rematch.equalsIgnoreCase("Y"));
 
    }
 
-   public static Game addPlayers(Scanner input) {
+   public static Game addPlayers(Scanner input)
+   {
       String player1;
       String player2;
       System.out.println("Enter player 1's name");
@@ -125,11 +101,11 @@ public class Driver {
       System.out.println("Are aces high or low?: H for High, L for low");
       response = input.nextLine();
 
-      if (response.equalsIgnoreCase("H"))
+      if(response.equalsIgnoreCase("H"))
          return new Game(player1, player2, buyin, true);
          //else if (response.equalsIgnoreCase("L"))
       else
-         return new Game(player1, player2, buyin, false);
+         return new Game(player1, player2, buyin,false );
    }
 
    public static void playerHits(Scanner input, Game game)
@@ -157,7 +133,8 @@ public class Driver {
          }while(hit);
       }
    }
-   public static void handleBombs(Scanner input, Game game) {
+   public static void handleBombs(Scanner input, Game game)
+   {
       String bombOrProtect;
       for(int i = 0; i < 2; i++)
       {
@@ -177,10 +154,11 @@ public class Driver {
             else
                game.wildcardDecision(false, false);
          }
+
       }
    }
-
-   public static void helloPlayers(){
+   public static void helloPlayers()
+   {
       System.out.println("\nWelcome to Jack Black\n");
       System.out.println("Explain Rules here");
    }
