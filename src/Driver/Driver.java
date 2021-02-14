@@ -20,38 +20,77 @@ public class Driver {
 
       final int numPlayers = 2;
 
-      ArrayList<Player> playerQ; //holds player objects
       Player currPlayer;         //placeholder current player
       String playerHand;         //placeholder for player's hand
 
       boolean endGame;           //bool check game has ended
       String rematch;            //string check if they want to play again
 
-      helloPlayers();            //greet players explain rules
-
       Scanner input = new Scanner(System.in);
 
       do {
 
+         helloPlayers();            //greet players explain rules
 
          //create new instance of deck
          deck = new Deck();
          endGame = false;
 
-         //setup game with a player 1 and 2
+         //setup game with a player 1 and 2, buy in, and ace high/low
          game = addPlayers(input);
-
-         //set aces high or low
-         setAce(input, game);
 
          //print out initial hands
          System.out.println(game.showPlayerCards(true));
          System.out.println(game.showPlayerCards(false));
 
+         //main game loop
+         do {
+            //take bets from both players
+            game.takeBets(true);
+            game.takeBets(false);
 
 
+            //handles players hitting
+            boolean hit = true;
+            for(int i = 0; i < 2; i++)
+            {
+               do{
+                  System.out.println("Player " + i + " do you want to hit? (y/n)");
+                  String result = input.nextLine();
 
-         rematch = "Y";
+                  if(result.equalsIgnoreCase("y"))
+                  {
+                     if(i == 0)
+                        game.playerHit(true);
+                     else
+                        game.playerHit(false);
+                  }
+                  else if(result.equalsIgnoreCase("n"))
+                     hit = false;
+                  else
+                     System.out.println("That was an invalid command.");
+
+               }while(hit);
+            }
+
+            //print out current hands
+            System.out.println(game.showPlayerCards(true));
+            System.out.println(game.showPlayerCards(false));
+
+            for(int i = 0; i < 2; i++)
+            {
+               System.out.println("");
+            }
+            //how to use the bomb.
+
+
+            endGame = true;
+
+         }while(!endGame);
+
+
+         System.out.println("Would you like to play again?");
+         rematch = input.nextLine();
 
       }while (rematch.equalsIgnoreCase("Y"));
 
@@ -71,21 +110,15 @@ public class Driver {
       double buyin = input.nextDouble();
       input.nextLine();
 
-      return new Game(player1, player2, buyin);
-   }
-   public static void setAce(Scanner input, Game game)
-   {
       String response;
       System.out.println("Are aces high or low?: H for High, L for low");
       response = input.nextLine();
 
       if(response.equalsIgnoreCase("H"))
-         game.setAce(true);
-      else if (response.equalsIgnoreCase("L"))
-         game.setAce(false);
+         return new Game(player1, player2, buyin, true);
+         //else if (response.equalsIgnoreCase("L"))
       else
-         System.out.println("something else happened ");
-
+         return new Game(player1, player2, buyin,false );
    }
 
    public static void helloPlayers()
@@ -94,10 +127,10 @@ public class Driver {
       System.out.println("Explain Rules here");
    }
    public static void wildCardDecision(int player, Scanner kb, Game game) {
-       String input;
-         System.out.println("Player 1, Do you want to keep your wild card? " +
-                 "Y if yes," + "\nor N if you wish to give it to your enememy.");
-   input = kb.nextLine();
+      String input;
+      System.out.println("Player 1, Do you want to keep your wild card? " +
+              "Y if yes," + "\nor N if you wish to give it to your enememy.");
+      input = kb.nextLine();
 
 //   if (player == 1) {
 //      if (input.toLowerCase().charAt(0) == 'y')
