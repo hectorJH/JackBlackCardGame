@@ -11,7 +11,7 @@ public class Driver {
       Deck deck;
 
       //game model handles game logic
-      Game game = new Game();
+      //Game game = new Game();
 
       //player counter to determine whose turn it is
       int playerCt = 0;
