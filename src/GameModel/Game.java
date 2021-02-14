@@ -18,11 +18,10 @@ public class Game {
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public Game(String p1Name, String p2Name, double buyInMoney,
-                boolean aceIsValue) {
+    public Game(String p1Name, String p2Name, double buyInMoney) {
         moneyPot = 0;
         buyInAmount = buyInMoney;
-        aceHigh = aceIsValue;
+//        aceHigh = aceIsValue;
         p1 = new Player(p1Name);
         p2 = new Player(p2Name);
 
@@ -34,6 +33,11 @@ public class Game {
             p2.addCard(cardDeck.drawCard());
         }
     }
+
+    public void setAce(boolean aceIsHigh) {
+        aceHigh = aceIsHigh;
+    }
+
 
     public void playerHit(boolean isPlayerOne) {
         if (isPlayerOne) {
