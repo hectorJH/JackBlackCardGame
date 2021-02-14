@@ -1,6 +1,7 @@
 package Player;
 
 import Deck52.Card;
+import Enums.Suits;
 import Exceptions.*;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ public class Player
 {
     private String name;
     public ArrayList<Card> hand;
+    public ArrayList<Card> specialCards;
     public Card bomb;
     public Card effectCard;
     public double wallet;
@@ -19,11 +21,19 @@ public class Player
     {
         this.name = playerName;
         hand = new ArrayList<>();
+        specialCards = new ArrayList<>();
         wallet = 500.00;
     }
     public void addCard(Card card) {hand.add(card);}
+    public void addSpecial(Card card) {specialCards.add(card);}
+    public void moveSpecialToHand()
+    {
+        hand.addAll(specialCards);
+    }
+
     public void addBombCard(Card bombCard){bomb = bombCard;}
 
+    public double getWallet(){return wallet;}
     public double handleWinnings(double winnings)
     {
         wallet += winnings;
@@ -57,19 +67,40 @@ public class Player
                     accumulator += cardValue;
         }
 
-        cardTotal = accumulator;
+        cardTotal += accumulator;
 
         return accumulator;
     }
-    public void applyProtection()
+    public void applyProtection(boolean aceHigh)
     {
         effectCard = bomb;
-        cardTotal = cardTotal - this.bomb.getRank();
+        int rankValue = this.bomb.getRank();
+
+        if(rankValue >= 10)
+            rankValue = 10;
+        else if(rankValue == 1 && aceHigh)
+            rankValue = 11;
+        else if (rankValue == 1 & !aceHigh)
+            rankValue = 1;
+        else
+            rankValue += 0;
+
+        cardTotal = cardTotal - rankValue;
     }
-    public void bombed(Card bomb)
+    public void bombed(Card bomb, boolean aceHigh)
     {
         effectCard = bomb;
-        cardTotal = cardTotal + bomb.getRank();
+        int rankValue = bomb.getRank();
+        if(rankValue >= 10)
+            rankValue = 10;
+        else if(rankValue == 1 && aceHigh)
+            rankValue = 11;
+        else if (rankValue == 1 & !aceHigh)
+            rankValue = 1;
+        else
+            rankValue += 0;
+
+        cardTotal = cardTotal + rankValue;
         hasBeenBombed = true;
     }
 
@@ -91,7 +122,28 @@ public class Player
     {
         StringBuilder sb = new StringBuilder();
         sb.append(name + "'s Hand: ");
-        sb.append(hand.toString());
+        int cardRank;
+        Suits suit;
+
+        for(int i =0; i < hand.size(); i++)
+        {
+            cardRank = hand.get(i).getRank();
+            suit = hand.get(i).getSuit();
+            sb.append("|" + suit);
+
+            if(cardRank == 11)
+                sb.append(" JACK|");
+            else if(cardRank == 12)
+                sb.append(" QUEEN|");
+            else if(cardRank == 13)
+                sb.append(" KING|");
+            else if(cardRank == 1)
+                sb.append(" ACE|");
+            else
+                sb.append(" " + cardRank + "|");
+        }
+
+
 
         return sb.toString();
     }

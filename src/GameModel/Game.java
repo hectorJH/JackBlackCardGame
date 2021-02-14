@@ -64,12 +64,12 @@ public class Game {
         if(isPlayerOne)
         {
             if(isBomb) {
-                p2.bombed(p1.getBombCard());
+                p2.bombed(p1.getBombCard(), aceHigh);
                 return p2.effectCard;
             }
             else
             {
-                p1.applyProtection();
+                p1.applyProtection(aceHigh);
                 return p1.effectCard;
             }
         }
@@ -77,12 +77,12 @@ public class Game {
             {
             if(isBomb)
             {
-                p1.bombed(p2.getBombCard());
+                p1.bombed(p2.getBombCard(), aceHigh);
                 return p1.effectCard;
             }
             else
             {
-                p2.applyProtection();
+                p2.applyProtection(aceHigh);
                 return p2.effectCard;
             }
         }
@@ -115,12 +115,20 @@ public class Game {
         double p1RoundResult = Math.abs(target - p1.getPlayerCount(aceHigh));
         double p2RoundResult = Math.abs(target - p2.getPlayerCount(aceHigh));
 
-        if(!p1.getHasBeenBombed() && !p2.getHasBeenBombed()) {
+        System.out.println(showPlayerCards(true));
+        System.out.println("Player One's Total: " + getP1().getCardTotal());
+        System.out.println(showPlayerCards(false));
+        System.out.println("Player Two's Total: " + getP2().getCardTotal());
+
+        if(!p1.getHasBeenBombed() && !p2.getHasBeenBombed())
+        {
             if (p1RoundResult < p2RoundResult)
                 return playerLostRound(false);
             else
                 return playerLostRound(true);
-        } else {
+        }
+        else
+        {
             if(p1.getCardTotal() > p2.getCardTotal())
                 return playerLostRound(false);
             else
@@ -164,15 +172,13 @@ public class Game {
     }
 
     public String playerLostRound(boolean isPlayerOne) {
-        p1.roundReset();;
-        p2.roundReset();
 
         if (isPlayerOne) {
             p2.handleWinnings(moneyPot);
-            return "\n" + p2.getName() + " has won the round!";
+            return "\n" + p2.getName() + " has won the round!\n";
         } else {
             p1.handleWinnings(moneyPot);
-            return "\n" + p1.getName() + " has won the round!";
+            return "\n" + p1.getName() + " has won the round!\n";
         }
     }
 
