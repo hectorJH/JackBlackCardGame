@@ -1,17 +1,15 @@
 package Deck52;
-
 import Deck52.Card;
 import Enums.Suits;
+import java.util.ArrayList;
 
 import java.util.Random;
 
 public class Deck {
-   private Card[] cards;
+   private ArrayList<Card> cards;
 
    public Deck() {
-      cards = new Card[52];
-
-      int i = 0;
+      cards = new ArrayList<Card>();
       Suits s;
 
       for (int suit = 1; suit <= 4; suit++) {
@@ -23,13 +21,15 @@ public class Deck {
             if (suit == 3)
                s = Suits.CLUB;
             else s = Suits.SPADE;
-            cards[i++] = new Card(s, rank);
+            cards.add(new Card(s, rank));
          }
       }
    }
 
-   public String drawCard() {
-      return cards[generateRandomIndex()].toString();
+   public Card drawCard() {
+
+
+      return cards.get(generateRandomIndex());
    }
 
    private int generateRandomIndex() {
@@ -41,8 +41,8 @@ public class Deck {
    public String toString() {
       StringBuilder sb = new StringBuilder();
 
-      for (int i = 0; i < cards.length; i++) {
-         sb.append(cards[i].toString() + "\n");
+      for (int i = 0; i < cards.size(); i++) {
+         sb.append(cards.get(i).toString() + "\n");
       }
 
       return sb.toString();
