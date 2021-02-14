@@ -127,7 +127,6 @@ public class Game {
                 e.getMessage();
                 winnerFound = true;
                 System.out.println(playerLostGame(isPlayerOne));
-
             }
         }
         return winnerFound;
