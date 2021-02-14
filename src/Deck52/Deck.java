@@ -56,7 +56,7 @@ public class Deck {
 
    private int generateRandomIndex() {
       Random rand = new Random();
-      return rand.nextInt(51);
+      return rand.nextInt(cards.size());
    }
 
 }

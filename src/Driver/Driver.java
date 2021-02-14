@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class Driver {
    public static void main (String args[]) {
-      System.out.println("Hello World!");
-
       Deck deck;
 
       //game model handles game logic
@@ -17,7 +15,7 @@ public class Driver {
       //player counter to determine whose turn it is
       int playerCt = 0;
       int bombCount = 0;
-
+      boolean jbChanceToAnswer = true;
       final int numPlayers = 2;
 
       Player currPlayer;         //placeholder current player
@@ -57,8 +55,7 @@ public class Driver {
             {
                endGame = true;
             }
-            else
-            {
+            else {
                //handle player hitting
                playerHits(input, game);
 
@@ -68,10 +65,21 @@ public class Driver {
 
                //how do users want to use their bomb cards
                handleBombs(input,game);
+               boolean playerOneJBAnswer =
+                       JackBlackCheck(input, game, true);
+               boolean playerTwoJBAnswer =
+                       JackBlackCheck(input, game, true);
 
-               //compares the hands move winnings to winner
-               String roundWinner = game.compareHand();
-               System.out.println(roundWinner);
+               if((playerOneJBAnswer && playerTwoJBAnswer) ||
+                       (!playerOneJBAnswer && !playerTwoJBAnswer) ) {
+                  //compares the hands move winnings to winner
+                  String roundWinner = game.compareHand();
+                  System.out.println(roundWinner);
+               } else if(playerOneJBAnswer) {
+                  game.playerLostRound(false);
+               } else
+                     game.playerLostRound(true);
+
 
                //check if a player has lost all their money.
                //restart the round
@@ -80,7 +88,7 @@ public class Driver {
          }while(!endGame);
 
 
-         System.out.println("Would you like to play again?");
+         System.out.print("Would you like to play again? ");
          rematch = input.nextLine();
 
       }while (rematch.equalsIgnoreCase("Y"));
@@ -91,18 +99,18 @@ public class Driver {
    {
       String player1;
       String player2;
-      System.out.println("Enter player 1's name");
+      System.out.print("Enter player 1's name: ");
       player1 = input.nextLine();
 
-      System.out.println("Enter player 2's name");
+      System.out.print("Enter player 2's name: ");
       player2 = input.nextLine();
 
-      System.out.println("Enter buy in amount");
+      System.out.print("Enter buy in amount: ");
       double buyin = input.nextDouble();
       input.nextLine();
 
       String response;
-      System.out.println("Are aces high or low?: H for High, L for low");
+      System.out.print("Are aces high or low? (H for High, L for low): ");
       response = input.nextLine();
 
       if(response.equalsIgnoreCase("H"))
@@ -119,7 +127,8 @@ public class Driver {
       for(int i = 0; i < 2; i++)
       {
          do{
-            System.out.println("Player " + i + " do you want to hit? (y/n)");
+            System.out.print("Player " + (i + 1) + " do you want to hit? " +
+                    "(y/n) ");
             String result = input.nextLine();
 
             if(result.equalsIgnoreCase("y"))
@@ -142,7 +151,7 @@ public class Driver {
       String bombOrProtect;
       for(int i = 0; i < 2; i++)
       {
-         System.out.println("Player " + i + " bomb or protect (B/P)");
+         System.out.print("Player " + i + " bomb or protect (B/P): ");
          bombOrProtect = input.nextLine();
          if(bombOrProtect.equalsIgnoreCase("B"))
          {
@@ -158,9 +167,26 @@ public class Driver {
             else
                game.wildcardDecision(false, false);
          }
-
       }
    }
+
+   public static boolean JackBlackCheck(Scanner kb, Game game,
+                                     boolean isPlayerOne){
+      String result;
+      boolean answerCorrect = false;
+
+      if(11 == game.getEffectCardFromPlayer(isPlayerOne)) {
+         game.askJBQuestion();
+         result = kb.nextLine().toLowerCase();
+         answerCorrect = game.jackBlackCheckAnswer(result.charAt(0));
+      }else if (11 == game.getEffectCardFromPlayer(!isPlayerOne)){
+         game.askJBQuestion();
+         result = kb.nextLine().toLowerCase();
+         answerCorrect = game.jackBlackCheckAnswer(result.charAt(0));
+      }
+         return answerCorrect;
+   }
+
    public static void helloPlayers()
    {
       System.out.println("\nWelcome to Jack Black\n");

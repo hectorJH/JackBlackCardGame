@@ -1,5 +1,6 @@
 package GameModel;
 
+import Deck52.Card;
 import Deck52.Deck;
 import Player.Player;
 
@@ -80,6 +81,21 @@ public class Game {
        return jb.getQuestion();
     }
 
+    public int getEffectCardFromPlayer(boolean isPlayerOne){
+        if(isPlayerOne)
+            return p1.getEffectCardRank();
+        else
+            return p2.getEffectCardRank();
+    }
+
+    public String jackBlackQuestion(){
+        return jb.getQuestion();
+    }
+
+    public boolean jackBlackCheckAnswer(char ch){
+        return jb.checkAnswerChoice(ch);
+    }
+
     public String compareHand(){
         double p1RoundResult = Math.abs(target - p1.getPlayerCount(aceHigh));
         double p2RoundResult = Math.abs(target - p2.getPlayerCount(aceHigh));
@@ -132,7 +148,7 @@ public class Game {
         return winnerFound;
     }
 
-    String playerLostRound(boolean isPlayerOne) {
+    public String playerLostRound(boolean isPlayerOne) {
         if (isPlayerOne) {
             p2.handleWinnings(moneyPot);
             return "\n" + p2.getName() + " has won the round!";
@@ -142,7 +158,7 @@ public class Game {
         }
     }
 
-    String playerLostGame(boolean isPlayerOne){
+    public String playerLostGame(boolean isPlayerOne){
         if (!isPlayerOne)
             return "\n" + p2.getName() + " has destroyed "
                     + p1.getName() + ". Well done " + p2.getName() + "!";

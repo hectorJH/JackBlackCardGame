@@ -10,6 +10,7 @@ public class Player
     private String name;
     public ArrayList<Card> hand;
     public Card bomb;
+    public Card effectCard;
     public double wallet;
     private int cardTotal = 0;
     private boolean hasBeenBombed = false;
@@ -17,6 +18,7 @@ public class Player
     public Player(String playerName)
     {
         this.name = playerName;
+        hand = new ArrayList<>();
         wallet = 500.00;
     }
     public void addCard(Card card) {hand.add(card);}
@@ -58,13 +60,20 @@ public class Player
     }
     public void applyProtection()
     {
+        effectCard = bomb;
         cardTotal = cardTotal - this.bomb.getRank();
     }
     public void bombed(Card bomb)
     {
+        effectCard = bomb;
         cardTotal = cardTotal + bomb.getRank();
         hasBeenBombed = true;
     }
+
+    public int getEffectCardRank(){
+        return effectCard.getRank();
+    }
+
 
     public int getCardTotal(){return cardTotal;}
 
