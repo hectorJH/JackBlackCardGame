@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Game {
     //private fields~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    static int moneyPot;
+    static double moneyPot;
     private double buyInAmount;
     private boolean aceHigh;
     private Deck cardDeck;
@@ -20,9 +20,11 @@ public class Game {
     private Player p2;
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    public Game(String p1Name, String p2Name) {
+    public Game(String p1Name, String p2Name, double buyInMoney,
+                boolean aceIsValue) {
         moneyPot = 0;
-        buyInAmount = 0;
+        buyInAmount = buyInMoney;
+        aceHigh = aceIsValue;
         p1 = new Player(p1Name);
         p2 = new Player(p2Name);
 
@@ -43,7 +45,7 @@ public class Game {
         if (isPlayerOne == true){
 
         } else {
-            
+
         }
 
 
