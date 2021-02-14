@@ -149,6 +149,9 @@ public class Game {
     }
 
     public String playerLostRound(boolean isPlayerOne) {
+        p1.roundReset();;
+        p2.roundReset();
+
         if (isPlayerOne) {
             p2.handleWinnings(moneyPot);
             return "\n" + p2.getName() + " has won the round!";

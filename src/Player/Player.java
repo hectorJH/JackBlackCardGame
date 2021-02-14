@@ -74,7 +74,6 @@ public class Player
         return effectCard.getRank();
     }
 
-
     public int getCardTotal(){return cardTotal;}
 
     public boolean getHasBeenBombed(){return hasBeenBombed;}
@@ -89,12 +88,14 @@ public class Player
 
         return sb.toString();
     }
+
     public String getName(){return this.name;}
 
     public void roundReset()
     {
         hasBeenBombed = false;
         cardTotal = 0;
+        hand.clear();
     }
 
 }
