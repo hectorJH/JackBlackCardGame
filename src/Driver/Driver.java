@@ -19,39 +19,62 @@ public class Driver {
 
       final int numPlayers = 2;
 
-      ArrayList<Player> playerQ; //holds player objects
       Player currPlayer;         //placeholder current player
       String playerHand;         //placeholder for player's hand
 
       boolean endGame;           //bool check game has ended
       String rematch;            //string check if they want to play again
 
-      helloPlayers();            //greet players explain rules
-
       Scanner input = new Scanner(System.in);
 
       do {
 
+         helloPlayers();            //greet players explain rules
 
          //create new instance of deck
          deck = new Deck();
          endGame = false;
 
-         //setup game with a player 1 and 2
+         //setup game with a player 1 and 2, buy in, and ace high/low
          game = addPlayers(input);
-
-         //set aces high or low
-         setAce(input, game);
-
-
 
          //print out initial hands
          System.out.println(game.showPlayerCards(true));
          System.out.println(game.showPlayerCards(false));
 
+         //main game loop
+         do {
+            //take bets
+
+            //game.takeBets(true);
+            //game.takeBets(false);
+
+            boolean hit = false;
+            for(int i = 0; i < 2; i++)
+            {
+               do{
+                  System.out.println("Player " + i + " do you want to hit?");
+                  String result = input.nextLine();
+
+                  //if(result.equalsIgnoreCase("Y"))
+               }while(hit);
+            }
+            System.out.println();
+            //decide if they hit
+
+            //calculate number
+
+            //how to use the bomb.
 
 
-         rematch = "Y";
+
+            endGame = true;
+
+         }while(!endGame);
+
+
+         System.out.println("Would you like to play again?");
+         rematch = input.nextLine();
 
       }while (rematch.equalsIgnoreCase("Y"));
 
@@ -71,21 +94,15 @@ public class Driver {
       System.out.println("Enter buy in amount");
       double buyin = input.nextDouble();
 
-      return new Game(player1, player2);
-   }
-   public static void setAce(Scanner input, Game game)
-   {
       String response;
       System.out.println("Are aces high or low?: H for High, L for low");
       response = input.nextLine();
 
       if(response.equalsIgnoreCase("H"))
-         game.setAceValue(true);
-      else if (response.equalsIgnoreCase("L"))
-         game.setAceValue(false);
+         return new Game(player1, player2, buyin, true);
+      //else if (response.equalsIgnoreCase("L"))
       else
-         System.out.println("something else happened ");
-
+         return new Game(player1, player2, buyin,false );
    }
 
    public static void helloPlayers()
