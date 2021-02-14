@@ -33,8 +33,10 @@ public class Game {
         cardDeck = new Deck();
     }
 
-    public void startRound(){
-        for (int i = 0; i < 2; i++) {
+    public void startRound()
+    {
+        for (int i = 0; i < 2; i++)
+        {
             p1.addCard(cardDeck.drawCard());
             p2.addCard(cardDeck.drawCard());
         }

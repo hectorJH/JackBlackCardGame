@@ -18,15 +18,13 @@ public class Driver {
       boolean jbChanceToAnswer = true;
       final int numPlayers = 2;
 
-      Player currPlayer;         //placeholder current player
-      String playerHand;         //placeholder for player's hand
-
       boolean endGame;           //bool check game has ended
       String rematch;            //string check if they want to play again
 
       Scanner input = new Scanner(System.in);
 
       do {
+
          helloPlayers();            //greet players explain rules
 
          //create new instance of deck
@@ -87,11 +85,11 @@ public class Driver {
                   System.out.println(roundWinner);
                }
                else if(playerOneJBAnswer)
-               {
                   game.playerLostRound(false);
-               }
                else
                   game.playerLostRound(true);
+
+               //handles presenting end game hands to players
 
                game.getP1().moveSpecialToHand();
                game.getP2().moveSpecialToHand();
@@ -103,6 +101,7 @@ public class Driver {
 
                game.getP1().roundReset();
                game.getP2().roundReset();
+
                //check if a player has lost all their money.
                //restart the round
             }
@@ -221,7 +220,7 @@ public class Driver {
    }
 
    public static boolean JackBlackCheck(Scanner kb, Game game,
-                                        boolean isPlayerOne){
+                                     boolean isPlayerOne){
       String result;
       boolean answerCorrect = false;
 
@@ -234,12 +233,29 @@ public class Driver {
          result = kb.nextLine().toLowerCase();
          answerCorrect = game.jackBlackCheckAnswer(result.charAt(0));
       }
-      return answerCorrect;
+         return answerCorrect;
    }
 
    public static void helloPlayers()
    {
       System.out.println("\nWelcome to Jack Black\n");
-      System.out.println("Explain Rules here");
+      System.out.println("\nJack Black plays like the famous game 21 or Black \n" +
+                        "Jack. Where the goal is to get closest to 21 without \n" +
+                        "going over.\n" +
+                        "However, there's a twist! Each player is given an additional\n" +
+                        "card, but neither player can see that card. From there the game\n" +
+                        "plays out as normal each player can hit cards until trying to reach\n" +
+                        "21. After both players have added to their hands they can activate \n" +
+                        "their hidden special card.\n" +
+
+                        "The players can do one of two things with their hidden card. They can\n" +
+                        "bomb the other player which will add onto that player's score or they\n" +
+                        "can protect themself decreasing their own score.\n " +
+                        "However, if both players choose to bomb each other then the game no longer" +
+                        "becomes about reaching 21, but whoever has the highest card total!\n");
+
+      System.out.println("And the final twist in the spirit of calling the game Jack Black\n" +
+                        "When the special card is used and is a Jack the player's must answer\n" +
+                        "trivia questions about Jack Black Movies to win the hand.");
    }
 }
