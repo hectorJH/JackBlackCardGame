@@ -51,7 +51,7 @@ public class Game {
         }
     }
 
-    public void wildcardDecision(boolean isPlayerOne, boolean isBomb){
+    public void wildCardDecision(boolean isPlayerOne, boolean isBomb){
         //need to be able to access player's wildcard and give it to another
         //player
 
@@ -74,6 +74,10 @@ public class Game {
 
     public double getBuyInAmount(){
         return buyInAmount;
+    }
+
+    public String askJBQuestion(){
+       return jb.getQuestion();
     }
 
     public String compareHand(){
@@ -101,19 +105,19 @@ public class Game {
     }
 
     /**
-     * Used at the beginning of the round
-     *
+     * False = winner not found, true = winner foound
      * @param isPlayerOne
      * @return
      */
-    public String takeBets(boolean isPlayerOne) {
+    public boolean takeBets(boolean isPlayerOne) {
         if (isPlayerOne) {
             try {
                 p1.placeBet(buyInAmount);
                 moneyPot += buyInAmount;
             } catch (Exception e) {
                 e.getMessage();
-                return playerLostGame(isPlayerOne);
+                winnerFound = true;
+                System.out.println(playerLostGame(isPlayerOne));
             }
         } else {
             try {
@@ -121,10 +125,11 @@ public class Game {
                 moneyPot += buyInAmount;
             } catch (Exception e) {
                 e.getMessage();
-                return playerLostGame(isPlayerOne);
+                winnerFound = true;
+                System.out.println(playerLostGame(isPlayerOne));
             }
         }
-        return "\nBets have been placed";
+        return winnerFound;
     }
 
     String playerLostRound(boolean isPlayerOne) {
