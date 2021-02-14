@@ -35,7 +35,24 @@ public class Player
         }
 
     }
-    public Card useBombCard(){return bomb;}
+    public int getPlayerCount(boolean aceHigh)
+    {
+        int cardValue;
+        int accumulator = 0;
+        for(int i = 0; i < hand.size(); i++)
+        {
+            cardValue = hand.get(i).getRank();
+            if(cardValue == 1 & aceHigh)
+                accumulator += 11;
+            else if(cardValue == 1 & !aceHigh)
+                accumulator += 1;
+            else
+                accumulator += cardValue;
+        }
+
+        return accumulator;
+    }
+    public Card getBombCard(){return bomb;}
     public String getHand()
     {
         StringBuilder sb = new StringBuilder();
