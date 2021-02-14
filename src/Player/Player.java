@@ -11,6 +11,9 @@ public class Player
     public ArrayList<Card> hand;
     public Card bomb;
     public double wallet;
+    private int cardTotal = 0;
+
+    private boolean hasBeenBombed = false;
 
     public Player(String playerName)
     {
@@ -50,9 +53,24 @@ public class Player
                 accumulator += cardValue;
         }
 
+        cardTotal = accumulator;
+
         return accumulator;
     }
+    public void applyProtection()
+    {
+        cardTotal = cardTotal - this.bomb.getRank();
+    }
+    public void bombed(Card bomb)
+    {
+        cardTotal = cardTotal + bomb.getRank();
+        hasBeenBombed = true;
+    }
+
+    public boolean getHasBeenBombed(){return hasBeenBombed;}
+
     public Card getBombCard(){return bomb;}
+
     public String getHand()
     {
         StringBuilder sb = new StringBuilder();
