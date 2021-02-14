@@ -31,7 +31,6 @@ public class Game {
         p1 = new Player(p1Name);
         p2 = new Player(p2Name);
         cardDeck = new Deck();
-        cardDeck.populateDeck();
     }
 
     public void startRound(){

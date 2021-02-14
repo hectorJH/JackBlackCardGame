@@ -36,6 +36,7 @@ public class Driver {
          //setup game with a player 1 and 2, buy in, and ace high/low
          game = addPlayers(input);
 
+
          //main game loop
          do {
 
@@ -225,11 +226,11 @@ public class Driver {
       boolean answerCorrect = false;
 
       if(11 == game.getEffectCardFromPlayer(isPlayerOne)) {
-         game.askJBQuestion();
+         System.out.println(game.askJBQuestion());
          result = kb.nextLine().toLowerCase();
          answerCorrect = game.jackBlackCheckAnswer(result.charAt(0));
       }else if (11 == game.getEffectCardFromPlayer(!isPlayerOne)){
-         game.askJBQuestion();
+         System.out.println(game.askJBQuestion());
          result = kb.nextLine().toLowerCase();
          answerCorrect = game.jackBlackCheckAnswer(result.charAt(0));
       }

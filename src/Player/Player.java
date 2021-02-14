@@ -106,8 +106,10 @@ public class Player
 
     public int getEffectCardRank()
     {
-        if(effectCard != null)
+        if(effectCard != null) {
+            System.out.println("Effect rank card is not null.");
             return effectCard.getRank();
+        }
         else
             return -1;
     }
