@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Game {
     //private fields~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     static int moneyPot;
-    private int buyInAmount;
+    private double buyInAmount;
     HashMap<String, Player> players;
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -29,18 +29,15 @@ public class Game {
     }
 
     public void takeBets(String playerName){
+        boolean exceptionThrown = false;
+        try{
+            players.get(playerName).placeBet(buyInAmount);
+        } catch (Exception e){
+            exceptionThrown = true;
+            e.getMessage();
+        }
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }
