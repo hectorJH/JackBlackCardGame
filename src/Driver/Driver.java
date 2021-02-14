@@ -44,25 +44,36 @@ public class Driver {
 
          //main game loop
          do {
-            //take bets
+            //take bets from both players
+            game.takeBets(true);
+            game.takeBets(false);
 
-            //game.takeBets(true);
-            //game.takeBets(false);
 
-            boolean hit = false;
+            //handles players hitting
+            boolean hit = true;
             for(int i = 0; i < 2; i++)
             {
                do{
-                  System.out.println("Player " + i + " do you want to hit?");
+                  System.out.println("Player " + i + " do you want to hit? (y/n)");
                   String result = input.nextLine();
 
-                  //if(result.equalsIgnoreCase("Y"))
+                  if(result.equalsIgnoreCase("y"))
+                  {
+                     if(i == 0)
+                        game.playerHit(true);
+                     else
+                        game.playerHit(false);
+                  }
+                  else if(result.equalsIgnoreCase("n"))
+                     hit = false;
+                  else
+                     System.out.println("That was an invalid command.");
+
                }while(hit);
             }
-            System.out.println();
-            //decide if they hit
 
-            //calculate number
+            //calculate preliminaray scores
+            //for(int i = 0;)
 
             //how to use the bomb.
 
