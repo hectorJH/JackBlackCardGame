@@ -7,7 +7,6 @@ public class InsufficientFunds extends Exception
     }
 
     public InsufficientFunds() {
-        this("Insufficient Funds for bet." +
-                " you poor sad loser.");
+        this("Insufficient Funds for bet. You poor sad loser.");
     }
 }

@@ -1,5 +1,4 @@
 package Deck52;
-import Deck52.Card;
 import Enums.Suits;
 import java.util.ArrayList;
 
@@ -10,7 +9,14 @@ public class Deck {
 
    public Deck() {
       cards = new ArrayList<Card>();
+      populateDeck();
+   }
+
+   public void populateDeck() {
       Suits s;
+
+      if (cards.size() != 0)
+         cards.clear();
 
       for (int suit = 1; suit <= 4; suit++) {
          for (int rank = 1; rank <= 13; rank++) {
@@ -27,15 +33,14 @@ public class Deck {
    }
 
    public Card drawCard() {
+      if (cards.size() <= 10) {
+         populateDeck();
+      }
+
       int randomIndex = generateRandomIndex();
       Card c = cards.get(randomIndex);
       cards.remove(randomIndex);
       return c;
-   }
-
-   private int generateRandomIndex() {
-      Random rand = new Random();
-      return rand.nextInt(51);
    }
 
    @Override
@@ -47,6 +52,11 @@ public class Deck {
       }
 
       return sb.toString();
+   }
+
+   private int generateRandomIndex() {
+      Random rand = new Random();
+      return rand.nextInt(51);
    }
 
 }
