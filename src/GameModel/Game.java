@@ -55,23 +55,35 @@ public class Game {
         }
     }
 
-    public void wildcardDecision(boolean isPlayerOne, boolean isBomb){
+    public Card wildcardDecision(boolean isPlayerOne, boolean isBomb){
         //need to be able to access player's wildcard and give it to another
         //player
 
         //need to be able to access a player's count, a player's wildcard,
         // and a player's bomb
-        if(isPlayerOne){
+        if(isPlayerOne)
+        {
             if(isBomb) {
                 p2.bombed(p1.getBombCard());
+                return p2.effectCard;
             }
             else
+            {
                 p1.applyProtection();
-        } else {
-            if(isBomb) {
+                return p1.effectCard;
+            }
+        }
+        else
+            {
+            if(isBomb)
+            {
                 p1.bombed(p2.getBombCard());
-            } else {
+                return p1.effectCard;
+            }
+            else
+            {
                 p2.applyProtection();
+                return p2.effectCard;
             }
         }
     }
@@ -152,6 +164,9 @@ public class Game {
     }
 
     public String playerLostRound(boolean isPlayerOne) {
+        p1.roundReset();;
+        p2.roundReset();
+
         if (isPlayerOne) {
             p2.handleWinnings(moneyPot);
             return "\n" + p2.getName() + " has won the round!";
@@ -169,6 +184,9 @@ public class Game {
             return "\n" + p1.getName() + " has absolutely wrecked "
                     + p2.getName() + ". Congrats " + p1.getName() + "!";
     }
+
+    public Player getP1() {return p1;}
+    public Player getP2(){return p2;}
 }
 
 

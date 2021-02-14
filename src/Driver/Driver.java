@@ -37,12 +37,12 @@ public class Driver {
          //setup game with a player 1 and 2, buy in, and ace high/low
          game = addPlayers(input);
 
-         //print out initial hands
-         System.out.println(game.showPlayerCards(true));
-         System.out.println(game.showPlayerCards(false));
-
          //main game loop
          do {
+
+            //print out initial hands
+            System.out.println(game.showPlayerCards(true));
+            System.out.println(game.showPlayerCards(false));
 
             boolean p1_lost;
             boolean p2_lost;
@@ -65,6 +65,9 @@ public class Driver {
 
                //how do users want to use their bomb cards
                handleBombs(input,game);
+               System.out.println(game.showPlayerCards(true));
+               System.out.println(game.showPlayerCards(false));
+
                boolean playerOneJBAnswer =
                        JackBlackCheck(input, game, true);
                boolean playerTwoJBAnswer =
@@ -133,10 +136,18 @@ public class Driver {
 
             if(result.equalsIgnoreCase("y"))
             {
+               hit = true;
                if(i == 0)
+               {
                   game.playerHit(true);
+                  System.out.println(game.showPlayerCards(true));
+               }
                else
+               {
                   game.playerHit(false);
+                  System.out.println(game.showPlayerCards(false));
+               }
+
             }
             else if(result.equalsIgnoreCase("n"))
                hit = false;
@@ -155,18 +166,38 @@ public class Driver {
          bombOrProtect = input.nextLine();
          if(bombOrProtect.equalsIgnoreCase("B"))
          {
-            if(i == 1)
-               game.wildcardDecision(true, true);
+            if(i == 0)
+            {
+               Card special = game.wildcardDecision(true, true);
+               System.out.println("Player One Bombed Player Two");
+               game.getP2().addCard(special);
+            }
             else
-               game.wildcardDecision(false, true);
+            {
+               Card special = game.wildcardDecision(false, true);
+               System.out.println("Player Two Bombed Player One");
+               game.getP1().addCard(special);
+            }
          }
-         else if(bombOrProtect.equalsIgnoreCase("Y"))
+         else if(bombOrProtect.equalsIgnoreCase("P"))
          {
-            if(i == 1)
-               game.wildcardDecision(true, false);
+            if(i == 0)
+            {
+               Card special = game.wildcardDecision(true, false);
+               System.out.println("Player One protected themself");
+               game.getP1().addCard(special);
+            }
             else
-               game.wildcardDecision(false, false);
+            {
+               Card special = game.wildcardDecision(false, false);
+               System.out.println("Player Two protected themself");
+               game.getP2().addCard(special);
+            }
          }
+         else
+            System.out.println("invalid command");
+
+         //TODO check if both players choose violence
       }
    }
 

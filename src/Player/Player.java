@@ -51,7 +51,10 @@ public class Player
             else if(cardValue == 1 && !aceHigh)
                 accumulator += 1;
             else
-                accumulator += cardValue;
+                if(cardValue >= 10)
+                    accumulator += 10;
+                else
+                    accumulator += cardValue;
         }
 
         cardTotal = accumulator;
@@ -70,10 +73,13 @@ public class Player
         hasBeenBombed = true;
     }
 
-    public int getEffectCardRank(){
-        return effectCard.getRank();
+    public int getEffectCardRank()
+    {
+        if(effectCard != null)
+            return effectCard.getRank();
+        else
+            return -1;
     }
-
 
     public int getCardTotal(){return cardTotal;}
 
@@ -89,12 +95,14 @@ public class Player
 
         return sb.toString();
     }
+
     public String getName(){return this.name;}
 
     public void roundReset()
     {
         hasBeenBombed = false;
         cardTotal = 0;
+        hand.clear();
     }
 
 }
