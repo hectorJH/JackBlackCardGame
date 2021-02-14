@@ -23,7 +23,7 @@ public class Game {
         target = 21;
         moneyPot = 0;
         buyInAmount = buyInMoney;
-        aceHigh = aceIsValue;
+//        aceHigh = aceIsValue;
         p1 = new Player(p1Name);
         p2 = new Player(p2Name);
         cardDeck = new Deck();
@@ -37,6 +37,11 @@ public class Game {
             p2.addCard(cardDeck.drawCard());
         }
     }
+
+    public void setAce(boolean aceIsHigh) {
+        aceHigh = aceIsHigh;
+    }
+
 
     public void playerHit(boolean isPlayerOne) {
         if(isPlayerOne) {
@@ -107,13 +112,13 @@ public class Game {
                 return playerLostGame(isPlayerOne);
             }
         } else {
-                try {
-                    p2.placeBet(buyInAmount);
-                    moneyPot += buyInAmount;
-                } catch (Exception e) {
-                    e.getMessage();
-                    return playerLostGame(isPlayerOne);
-                }
+            try {
+                p2.placeBet(buyInAmount);
+                moneyPot += buyInAmount;
+            } catch (Exception e) {
+                e.getMessage();
+                return playerLostGame(isPlayerOne);
+            }
         }
         return "\nBets have been placed";
     }
@@ -131,10 +136,10 @@ public class Game {
     String playerLostGame(boolean isPlayerOne){
         if (!isPlayerOne)
             return "\n" + p2.getName() + " has destroyed "
-                        + p1.getName() + ". Well done " + p2.getName() + "!";
+                    + p1.getName() + ". Well done " + p2.getName() + "!";
         else
             return "\n" + p1.getName() + " has absolutely wrecked "
-                        + p2.getName() + ". Congrats " + p1.getName() + "!";
+                    + p2.getName() + ". Congrats " + p1.getName() + "!";
     }
 }
 

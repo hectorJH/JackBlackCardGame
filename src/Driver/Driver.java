@@ -16,6 +16,7 @@ public class Driver {
 
       //player counter to determine whose turn it is
       int playerCt = 0;
+      int bombCount = 0;
 
       final int numPlayers = 2;
 
@@ -72,11 +73,15 @@ public class Driver {
                }while(hit);
             }
 
-            //calculate preliminaray scores
-            //for(int i = 0;)
+            //print out current hands
+            System.out.println(game.showPlayerCards(true));
+            System.out.println(game.showPlayerCards(false));
 
+            for(int i = 0; i < 2; i++)
+            {
+               System.out.println("");
+            }
             //how to use the bomb.
-
 
 
             endGame = true;
@@ -98,12 +103,12 @@ public class Driver {
       System.out.println("Enter player 1's name");
       player1 = input.nextLine();
 
-
       System.out.println("Enter player 2's name");
       player2 = input.nextLine();
 
       System.out.println("Enter buy in amount");
       double buyin = input.nextDouble();
+      input.nextLine();
 
       String response;
       System.out.println("Are aces high or low?: H for High, L for low");
@@ -111,7 +116,7 @@ public class Driver {
 
       if(response.equalsIgnoreCase("H"))
          return new Game(player1, player2, buyin, true);
-      //else if (response.equalsIgnoreCase("L"))
+         //else if (response.equalsIgnoreCase("L"))
       else
          return new Game(player1, player2, buyin,false );
    }
@@ -120,5 +125,22 @@ public class Driver {
    {
       System.out.println("\nWelcome to Jack Black\n");
       System.out.println("Explain Rules here");
+   }
+   public static void wildCardDecision(int player, Scanner kb, Game game) {
+      String input;
+      System.out.println("Player 1, Do you want to keep your wild card? " +
+              "Y if yes," + "\nor N if you wish to give it to your enememy.");
+      input = kb.nextLine();
+
+//   if (player == 1) {
+//      if (input.toLowerCase().charAt(0) == 'y')
+//         game.wildCardDecision(true, true);
+//      else
+//         game.wildCardDecision(true, false);
+//   } else {
+//      if (input.toLowerCase().charAt(0) == 'y')
+//         game.wildCardDecision(false, true);
+//      else
+//         game.wildCardDecision(false, false);
    }
 }
