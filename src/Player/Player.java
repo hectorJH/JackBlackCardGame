@@ -61,6 +61,7 @@ public class Player
 
         return sb.toString();
     }
+    public int numberCards(){return hand.size();}
     public String getName(){return this.name;}
 
 }
