@@ -16,14 +16,17 @@ public class Game {
     private Player p1;
     private Player p2;
     private int target;
+    private JackBlack jb;
+    private boolean winnerFound;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public Game(String p1Name, String p2Name, double buyInMoney,
                 boolean aceIsValue) {
         target = 21;
         moneyPot = 0;
+        jb = new JackBlack();
         buyInAmount = buyInMoney;
-//        aceHigh = aceIsValue;
+        aceHigh = aceIsValue;
         p1 = new Player(p1Name);
         p2 = new Player(p2Name);
         cardDeck = new Deck();
@@ -37,11 +40,6 @@ public class Game {
             p2.addCard(cardDeck.drawCard());
         }
     }
-
-    public void setAce(boolean aceIsHigh) {
-        aceHigh = aceIsHigh;
-    }
-
 
     public void playerHit(boolean isPlayerOne) {
         if(isPlayerOne) {
@@ -60,16 +58,22 @@ public class Game {
         //need to be able to access a player's count, a player's wildcard,
         // and a player's bomb
         if(isPlayerOne){
-            if(isBomb)
+            if(isBomb) {
                 p2.bombed(p1.getBombCard());
+            }
             else
                 p1.applyProtection();
         } else {
-            if(isBomb)
+            if(isBomb) {
                 p1.bombed(p2.getBombCard());
-            else
+            } else {
                 p2.applyProtection();
+            }
         }
+    }
+
+    public double getBuyInAmount(){
+        return buyInAmount;
     }
 
     public String compareHand(){
@@ -82,7 +86,7 @@ public class Game {
             else
                 return playerLostRound(true);
         } else {
-            if(p1.getPlayerCount(aceHigh) > p2.getPlayerCount(aceHigh))
+            if(p1.getCardTotal() > p2.getCardTotal())
                 return playerLostRound(false);
             else
                 return playerLostRound(true);
