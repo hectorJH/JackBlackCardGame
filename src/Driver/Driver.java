@@ -7,8 +7,9 @@ public class Driver {
 
       Deck d = new Deck();
       System.out.println(d.toString());
-      System.out.println("Testing");
-      System.out.println("Testing 2");
-      System.out.println("Testing 3");
+      Card c = d.drawCard();
+      System.out.println("Drew card : " + c.toString());
+      System.out.println();
+      System.out.println(d.toString());
    }
 }

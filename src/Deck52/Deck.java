@@ -27,9 +27,10 @@ public class Deck {
    }
 
    public Card drawCard() {
-
-
-      return cards.get(generateRandomIndex());
+      int randomIndex = generateRandomIndex();
+      Card c = cards.get(randomIndex);
+      cards.remove(randomIndex);
+      return c;
    }
 
    private int generateRandomIndex() {
