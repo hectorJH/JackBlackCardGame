@@ -15,6 +15,7 @@ public class Game {
     private Deck cardDeck;
     private Player p1;
     private Player p2;
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     public Game(String p1Name, String p2Name, double buyInMoney,
@@ -28,57 +29,68 @@ public class Game {
         cardDeck = new Deck();
         cardDeck.populateDeck();
 
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             p1.addCard(cardDeck.drawCard());
             p2.addCard(cardDeck.drawCard());
         }
     }
 
-    public void setAceValue(boolean aceValue){
-        aceHigh = aceValue;
-    }
+    public void playerHit(boolean isPlayerOne) {
+        if (isPlayerOne) {
+            p1.addCard(cardDeck.drawCard());
 
-    public String playerTurn(boolean isPlayerOne, boolean hit){
-        if (isPlayerOne == true){
-
+            showPlayerCards(isPlayerOne);
         } else {
+            p2.addCard(cardDeck.drawCard());
 
+            showPlayerCards(isPlayerOne);
         }
-
-
-        return "";
     }
 
-    public String showPlayerCards(boolean isPlayerOne){
-        if(isPlayerOne)
+    public String showPlayerCards(boolean isPlayerOne) {
+        if (isPlayerOne)
             return p1.getHand();
         else
             return p2.getHand();
     }
 
-    public String takeBets(String playerName){
-        try{
-            p1.placeBet(buyInAmount);
-        } catch (Exception e){
-            e.getMessage();
-            return playerLost(playerName);
+    public String takeBets(boolean isPlayerOne) {
+        if (isPlayerOne) {
+            try {
+                p1.placeBet(buyInAmount);
+                moneyPot += buyInAmount;
+            } catch (Exception e) {
+                e.getMessage();
+                return playerLostGame(isPlayerOne);
+            }
+        } else {
+                try {
+                    p2.placeBet(buyInAmount);
+                    moneyPot += buyInAmount;
+                } catch (Exception e) {
+                    e.getMessage();
+                    return playerLostGame(isPlayerOne);
+                }
         }
         return "\nBets have been placed";
     }
 
-    /**
-     *
-     * @param playerName player that LOST
-     * @return
-     */
-    String playerLost(String playerName){
-        if(p1.getName().equals(playerName))
-            return "\n" + p2.getName() + " has destroyed "
-                    + p1.getName() + ". Well done " + p2.getName() + "!";
+    String playerLostRound (boolean isPlayerOne){
+        if (isPlayerOne)
+            return "\n" + p2.getName() + " has won the round!";
         else
-            return "\n" + p1.getName() + " has absolutely wrecked "
-                    + p2.getName() + ". Congrats " + p1.getName() + "!";
+            return "\n" + p1.getName() + " has won the round!";
     }
 
-
+    String playerLostGame(boolean isPlayerOne){
+        if (!isPlayerOne)
+            return "\n" + p2.getName() + " has destroyed "
+                        + p1.getName() + ". Well done " + p2.getName() + "!";
+        else
+            return "\n" + p1.getName() + " has absolutely wrecked "
+                        + p2.getName() + ". Congrats " + p1.getName() + "!";
+    }
 }
+
+
+
