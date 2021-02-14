@@ -13,9 +13,6 @@ public class Game {
     private double buyInAmount;
     private boolean aceHigh;
     private Deck cardDeck;
-    //private HashMap<String, Player> players;
-    //private ArrayList<Player> players;
-
     private Player p1;
     private Player p2;
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
