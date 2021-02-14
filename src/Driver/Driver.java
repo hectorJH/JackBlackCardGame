@@ -84,10 +84,16 @@ public class Driver {
                   String roundWinner = game.compareHand();
                   System.out.println(roundWinner);
                }
-               else if(playerOneJBAnswer)
+               else if(playerOneJBAnswer) {
+                  System.out.println("Player 1 knows all the facts and has \n" +
+                          "won the round!");
                   game.playerLostRound(false);
-               else
+               }
+               else {
+                  System.out.println("Player 2 knows all the facts and has \n" +
+                          "won the round!");
                   game.playerLostRound(true);
+               }
 
                //handles presenting end game hands to players
 
@@ -113,6 +119,8 @@ public class Driver {
          rematch = input.nextLine();
 
       }while (rematch.equalsIgnoreCase("Y"));
+
+      happyFace();
 
    }
 
@@ -238,24 +246,43 @@ public class Driver {
 
    public static void helloPlayers()
    {
-      System.out.println("\nWelcome to Jack Black\n");
-      System.out.println("\nJack Black plays like the famous game 21 or Black \n" +
-                        "Jack. Where the goal is to get closest to 21 without \n" +
-                        "going over.\n" +
-                        "However, there's a twist! Each player is given an additional\n" +
-                        "card, but neither player can see that card. From there the game\n" +
-                        "plays out as normal each player can hit cards until trying to reach\n" +
-                        "21. After both players have added to their hands they can activate \n" +
-                        "their hidden special card.\n" +
+      System.out.println("\n***************** WELCOME TO JACK BLACK! *****************\n");
+      System.out.println("Jack Black plays like the famous game 21 or Black\n" +
+                        "Jack. Where the goal is to get closest to 21 without\n" +
+                        "going over. However, there's a twist! Each player is\n" +
+                        "given an additional" + "card, but neither player can \n" +
+                        "see that card. From there the game plays out as normal\n" +
+                        "each player can hit cards until trying to reach 21.\n" +
+                        "After both players have added to their hands they can\n" +
+                        "activate their hidden special card The players can do\n" +
+                        "one of two things with their hidden card. They can\n" +
+                        "bomb the other player which will add onto that player's\n" +
+                        "score or they can protect themself decreasing their own\n" +
+                        "score However, if both players choose to bomb each other\n" +
+                        "then the game no longer becomes about reaching 21, but\n" +
+                        "whoever has the highest card total!\n");
 
-                        "The players can do one of two things with their hidden card. They can\n" +
-                        "bomb the other player which will add onto that player's score or they\n" +
-                        "can protect themself decreasing their own score.\n " +
-                        "However, if both players choose to bomb each other then the game no longer" +
-                        "becomes about reaching 21, but whoever has the highest card total!\n");
+      System.out.println("And the final twist in the spirit of calling the game\n" +
+                         "Jack Black When the special card is used and is a Jack\n" +
+                         "the player's must answer trivia questions about Jack\n" +
+                         "Black Movies to win the hand.\n");
+   }
 
-      System.out.println("And the final twist in the spirit of calling the game Jack Black\n" +
-                        "When the special card is used and is a Jack the player's must answer\n" +
-                        "trivia questions about Jack Black Movies to win the hand.");
+   public static void happyFace() {
+      System.out.println("\nThank you for playing!\n\n");
+      System.out.println("         ***          ***\n" +
+              "        *   *        *   *\n" +
+              "        * * *        * * *\n" +
+              "        *   *        *   *\n" +
+              "         ***          ***\n\n" +
+              "              *     *\n" +
+              "               *   *\n" +
+              "                * *\n" +
+              "                 *\n\n\n" +
+              "       *****          *****\n" +
+              "         *              *\n" +
+              "          *            *\n" +
+              "           * ******** *\n");
+
    }
 }
