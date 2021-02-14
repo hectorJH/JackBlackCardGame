@@ -15,7 +15,7 @@ public class Game {
     private Deck cardDeck;
     private Player p1;
     private Player p2;
-    private int target
+    private int target;
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     public Game(String p1Name, String p2Name, double buyInMoney,
@@ -28,6 +28,9 @@ public class Game {
         p2 = new Player(p2Name);
         cardDeck = new Deck();
         cardDeck.populateDeck();
+
+        p1.addBombCard(cardDeck.drawCard());
+        p2.addBombCard(cardDeck.drawCard());
 
         for (int i = 0; i < 2; i++) {
             p1.addCard(cardDeck.drawCard());
@@ -55,20 +58,20 @@ public class Game {
             if(isBomb)
                 p2.addBombCard(p1.getBombCard());
             else
-                p1.protect();
+                p1.applyProtection();
         } else {
             if(isBomb)
                 p1.addBombCard(p2.getBombCard());
             else
-                p2.protect();
+                p2.applyProtection();
         }
     }
 
-    public String compareHand(boolean isNormal){
+    public String compareHand(){
         double p1RoundResult = Math.abs(target - p1.getPlayerCount(aceHigh));
         double p2RoundResult = Math.abs(target - p2.getPlayerCount(aceHigh));
 
-        if(isNormal) {
+        if(!p1.getHasBeenBombed() && !p2.getHasBeenBombed()) {
             if (p1RoundResult < p2RoundResult)
                 return playerLostRound(false);
             else
