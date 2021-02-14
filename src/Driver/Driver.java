@@ -12,7 +12,7 @@ public class Driver {
       Deck deck;
 
       //game model handles game logic
-      Game game = new Game();
+      Game game;
 
       //player counter to determine whose turn it is
       int playerCt = 0;
@@ -32,19 +32,23 @@ public class Driver {
 
       do {
 
+
          //create new instance of deck
          deck = new Deck();
          endGame = false;
-         playerQ = new ArrayList<Player>();
 
-         //setup game to be aceHigh
-         addPlayers(input, playerQ);
+         //setup game with a player 1 and 2
+         game = addPlayers(input);
+
+         //set aces high or low
+         setAce(input, game);
+
+         //game.showPlayerCards(true);
+
 
          //deal two face up cards and one face down
-         initialDeal(playerQ, deck);
+         //initialDeal(playerQ, deck);
 
-         //print out both players curent hands
-         printPlayerCards(playerQ);
 
 
 
@@ -55,22 +59,34 @@ public class Driver {
 
    }
 
-   public static void addPlayers(Scanner input, ArrayList<Player> playerQ)
+   public static Game addPlayers(Scanner input)
    {
-      String name;
+      String player1;
+      String player2;
       System.out.println("Enter player 1's name");
-      name = input.nextLine();
+      player1 = input.nextLine();
 
-      Player person = new Player(name);
-
-      playerQ.add(person);
 
       System.out.println("Enter player 2's name");
-      name = input.nextLine();
+      player2 = input.nextLine();
 
-      person = new Player(name);
-      playerQ.add(person);
+      return new Game(player1, player2);
    }
+   public static void setAce(Scanner input, Game game)
+   {
+      String response;
+      System.out.println("Are aces high or low?: H for High, L for low");
+      response = input.nextLine();
+
+      if(response.equalsIgnoreCase("H"))
+         game.setAceValue(true);
+      else if (response.equalsIgnoreCase("L"))
+         game.setAceValue(false);
+      else
+         System.out.println("something else happneded ");
+
+   }
+
    public static void initialDeal(ArrayList<Player> playerQ, Deck deck)
    {
 
