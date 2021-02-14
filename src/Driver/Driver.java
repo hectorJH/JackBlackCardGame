@@ -43,11 +43,11 @@ public class Driver {
          //set aces high or low
          setAce(input, game);
 
-         //game.showPlayerCards(true);
+         //print out initial hands
+         System.out.println(game.showPlayerCards(true));
+         System.out.println(game.showPlayerCards(false));
 
 
-         //deal two face up cards and one face down
-         //initialDeal(playerQ, deck);
 
 
 
@@ -85,28 +85,6 @@ public class Driver {
 
    }
 
-   public static void initialDeal(ArrayList<Player> playerQ, Deck deck)
-   {
-
-      //for loop hands out initial two cards
-      for(int i =0; i < playerQ.size(); i++)
-      {
-         playerQ.get(i).addCard(deck.drawCard());
-         if(i == playerQ.size()-1 & playerQ.get(i).numberCards() != 2)
-            i = 0;
-      }
-
-      for(int i = 0; i < playerQ.size(); i++)
-         playerQ.get(i).addBombCard(deck.drawCard());
-   }
-
-   public static void printPlayerCards(ArrayList<Player> playerQ)
-   {
-      for(int i =0; i < playerQ.size(); i++)
-      {
-         System.out.println(playerQ.get(i).getHand());
-      }
-   }
    public static void helloPlayers()
    {
       System.out.println("\nWelcome to Jack Black\n");
