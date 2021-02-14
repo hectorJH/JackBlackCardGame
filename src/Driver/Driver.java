@@ -27,7 +27,6 @@ public class Driver {
       Scanner input = new Scanner(System.in);
 
       do {
-
          helloPlayers();            //greet players explain rules
 
          //create new instance of deck
@@ -39,7 +38,7 @@ public class Driver {
 
          //main game loop
          do {
-
+            game.startRound();
             //print out initial hands
             System.out.println(game.showPlayerCards(true));
             System.out.println(game.showPlayerCards(false));
