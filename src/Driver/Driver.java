@@ -50,28 +50,32 @@ public class Driver {
             boolean p2_lost;
 
             //take bets from both players
-            game.takeBets(true);
-            game.takeBets(false);
+            p1_lost = game.takeBets(true);
+            p2_lost = game.takeBets(false);
 
-            //handle player hitting
-            playerHits(input, game);
+            if(p1_lost | p2_lost)
+            {
+               endGame = true;
+            }
+            else
+            {
+               //handle player hitting
+               playerHits(input, game);
 
-            //print out current hands
-            System.out.println(game.showPlayerCards(true));
-            System.out.println(game.showPlayerCards(false));
+               //print out current hands
+               System.out.println(game.showPlayerCards(true));
+               System.out.println(game.showPlayerCards(false));
 
-            //how do users want to use their bomb cards
-            handleBombs(input,game);
+               //how do users want to use their bomb cards
+               handleBombs(input,game);
 
-            //compares the hands move winnings to winner
-            String roundWinner = game.compareHand();
-            System.out.println(roundWinner);
+               //compares the hands move winnings to winner
+               String roundWinner = game.compareHand();
+               System.out.println(roundWinner);
 
-            //check if a player has lost all their money.
-            //restart the round
-
-            //how to check if the game has ended
-            endGame = true;
+               //check if a player has lost all their money.
+               //restart the round
+            }
 
          }while(!endGame);
 
