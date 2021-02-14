@@ -51,7 +51,7 @@ public class Game {
         }
     }
 
-    public void wildCardDecision(boolean isPlayerOne, boolean isBomb){
+    public void wildcardDecision(boolean isPlayerOne, boolean isBomb){
         //need to be able to access player's wildcard and give it to another
         //player
 
@@ -127,6 +127,7 @@ public class Game {
                 e.getMessage();
                 winnerFound = true;
                 System.out.println(playerLostGame(isPlayerOne));
+
             }
         }
         return winnerFound;
