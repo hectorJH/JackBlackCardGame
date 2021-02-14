@@ -184,23 +184,4 @@ public class Driver {
       System.out.println("\nWelcome to Jack Black\n");
       System.out.println("Explain Rules here");
    }
-
-   public static void wildCardDecision(int player, Scanner kb, Game game) {
-      String input;
-      System.out.println("Player 1, Do you want to keep your wild card? " +
-              "Y if yes," + "\nor N if you wish to give it to your enememy.");
-      input = kb.nextLine();
-
-      if (player == 1) {
-         if (input.toLowerCase().charAt(0) == 'y')
-            game.wildcardDecision(true, true);
-         else
-            game.wildcardDecision(true, false);
-      } else {
-         if (input.toLowerCase().charAt(0) == 'y')
-            game.wildcardDecision(false, true);
-         else
-            game.wildcardDecision(false, false);
-      }
-   }
 }
