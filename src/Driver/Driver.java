@@ -3,6 +3,7 @@ import Deck52.*;
 import GameModel.*;
 import Player.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Driver {
    public static void main (String args[]) {
@@ -11,7 +12,7 @@ public class Driver {
       Deck deck;
 
       //game model handles game logic
-      //Game game = new Game();
+      Game game;
 
       //player counter to determine whose turn it is
       int playerCt = 0;
@@ -27,13 +28,28 @@ public class Driver {
 
       helloPlayers();            //greet players explain rules
 
+      Scanner input = new Scanner(System.in);
+
       do {
+
 
          //create new instance of deck
          deck = new Deck();
          endGame = false;
 
-         //getPlayers();
+         //setup game with a player 1 and 2
+         game = addPlayers(input);
+
+         //set aces high or low
+         setAce(input, game);
+
+         //game.showPlayerCards(true);
+
+
+         //deal two face up cards and one face down
+         //initialDeal(playerQ, deck);
+
+
 
          rematch = "Y";
 
@@ -41,6 +57,56 @@ public class Driver {
 
    }
 
+   public static Game addPlayers(Scanner input)
+   {
+      String player1;
+      String player2;
+      System.out.println("Enter player 1's name");
+      player1 = input.nextLine();
+
+
+      System.out.println("Enter player 2's name");
+      player2 = input.nextLine();
+
+      return new Game(player1, player2);
+   }
+   public static void setAce(Scanner input, Game game)
+   {
+      String response;
+      System.out.println("Are aces high or low?: H for High, L for low");
+      response = input.nextLine();
+
+      if(response.equalsIgnoreCase("H"))
+         game.setAceValue(true);
+      else if (response.equalsIgnoreCase("L"))
+         game.setAceValue(false);
+      else
+         System.out.println("something else happneded ");
+
+   }
+
+   public static void initialDeal(ArrayList<Player> playerQ, Deck deck)
+   {
+
+      //for loop hands out initial two cards
+      for(int i =0; i < playerQ.size(); i++)
+      {
+         playerQ.get(i).addCard(deck.drawCard());
+         if(i == playerQ.size()-1 & playerQ.get(i).numberCards() != 2)
+            i = 0;
+      }
+
+      for(int i = 0; i < playerQ.size(); i++)
+         playerQ.get(i).addBombCard(deck.drawCard());
+   }
+
+   public static void printPlayerCards(ArrayList<Player> playerQ)
+   {
+      for(int i =0; i < playerQ.size(); i++)
+      {
+         System.out.println(playerQ.get(i).getHand());
+      }
+   }
    public static void helloPlayers()
    {
       System.out.println("\nWelcome to Jack Black\n");
