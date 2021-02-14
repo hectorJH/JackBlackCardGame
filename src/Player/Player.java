@@ -42,9 +42,9 @@ public class Player
         for(int i = 0; i < hand.size(); i++)
         {
             cardValue = hand.get(i).getRank();
-            if(cardValue == 1 & aceHigh)
+            if(cardValue == 1 && aceHigh)
                 accumulator += 11;
-            else if(cardValue == 1 & !aceHigh)
+            else if(cardValue == 1 && !aceHigh)
                 accumulator += 1;
             else
                 accumulator += cardValue;

@@ -43,11 +43,11 @@ public class Driver {
          //set aces high or low
          setAce(input, game);
 
+
+
          //print out initial hands
          System.out.println(game.showPlayerCards(true));
          System.out.println(game.showPlayerCards(false));
-
-
 
 
 
@@ -68,6 +68,9 @@ public class Driver {
       System.out.println("Enter player 2's name");
       player2 = input.nextLine();
 
+      System.out.println("Enter buy in amount");
+      double buyin = input.nextDouble();
+
       return new Game(player1, player2);
    }
    public static void setAce(Scanner input, Game game)
@@ -81,7 +84,7 @@ public class Driver {
       else if (response.equalsIgnoreCase("L"))
          game.setAceValue(false);
       else
-         System.out.println("something else happneded ");
+         System.out.println("something else happened ");
 
    }
 
