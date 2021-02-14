@@ -15,7 +15,11 @@ public class Game {
         moneyPot = 0;
         buyInAmount = 0;
         players = new HashMap<String, Player>();
+
+        System.out.println("Hector is trying to say something...AGAIN");
     }
+
+
 
 
 
