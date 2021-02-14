@@ -61,12 +61,12 @@ public class Game {
         // and a player's bomb
         if(isPlayerOne){
             if(isBomb)
-                p2.addBombCard(p1.getBombCard());
+                p2.bombed(p1.getBombCard());
             else
                 p1.applyProtection();
         } else {
             if(isBomb)
-                p1.addBombCard(p2.getBombCard());
+                p1.bombed(p2.getBombCard());
             else
                 p2.applyProtection();
         }

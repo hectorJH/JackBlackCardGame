@@ -50,40 +50,24 @@ public class Driver {
             game.takeBets(false);
 
 
-            //handles players hitting
-            boolean hit = true;
-            for(int i = 0; i < 2; i++)
-            {
-               do{
-                  System.out.println("Player " + i + " do you want to hit? (y/n)");
-                  String result = input.nextLine();
-
-                  if(result.equalsIgnoreCase("y"))
-                  {
-                     if(i == 0)
-                        game.playerHit(true);
-                     else
-                        game.playerHit(false);
-                  }
-                  else if(result.equalsIgnoreCase("n"))
-                     hit = false;
-                  else
-                     System.out.println("That was an invalid command.");
-
-               }while(hit);
-            }
+            //handle player hitting
+            playerHits(input, game);
 
             //print out current hands
             System.out.println(game.showPlayerCards(true));
             System.out.println(game.showPlayerCards(false));
 
-            for(int i = 0; i < 2; i++)
-            {
-               System.out.println("");
-            }
-            //how to use the bomb.
+            //how do users want to use their bomb cards
+            handleBombs(input,game);
 
+            //compares the hands move winnings to winner
+            String roundWinner = game.compareHand();
+            System.out.println(roundWinner);
 
+            //check if a player has lost all their money.
+            //restart the round
+
+            //how to check if the game has ended
             endGame = true;
 
          }while(!endGame);
@@ -121,6 +105,55 @@ public class Driver {
          return new Game(player1, player2, buyin,false );
    }
 
+   public static void playerHits(Scanner input, Game game)
+   {
+      //handles players hitting
+      boolean hit = true;
+      for(int i = 0; i < 2; i++)
+      {
+         do{
+            System.out.println("Player " + i + " do you want to hit? (y/n)");
+            String result = input.nextLine();
+
+            if(result.equalsIgnoreCase("y"))
+            {
+               if(i == 0)
+                  game.playerHit(true);
+               else
+                  game.playerHit(false);
+            }
+            else if(result.equalsIgnoreCase("n"))
+               hit = false;
+            else
+               System.out.println("That was an invalid command.");
+
+         }while(hit);
+      }
+   }
+   public static void handleBombs(Scanner input, Game game)
+   {
+      String bombOrProtect;
+      for(int i = 0; i < 2; i++)
+      {
+         System.out.println("Player " + i + " bomb or protect (B/P)");
+         bombOrProtect = input.nextLine();
+         if(bombOrProtect.equalsIgnoreCase("B"))
+         {
+            if(i == 1)
+               game.wildcardDecision(true, true);
+            else
+               game.wildcardDecision(false, true);
+         }
+         else if(bombOrProtect.equalsIgnoreCase("Y"))
+         {
+            if(i == 1)
+               game.wildcardDecision(true, false);
+            else
+               game.wildcardDecision(false, false);
+         }
+
+      }
+   }
    public static void helloPlayers()
    {
       System.out.println("\nWelcome to Jack Black\n");
