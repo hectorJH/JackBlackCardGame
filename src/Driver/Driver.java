@@ -40,6 +40,8 @@ public class Driver {
          //main game loop
          do {
 
+            game.startRound();
+
             //print out initial hands
             System.out.println(game.showPlayerCards(true));
             System.out.println(game.showPlayerCards(false));
@@ -65,8 +67,6 @@ public class Driver {
 
                //how do users want to use their bomb cards
                handleBombs(input,game);
-               System.out.println(game.showPlayerCards(true));
-               System.out.println(game.showPlayerCards(false));
 
                boolean playerOneJBAnswer =
                        JackBlackCheck(input, game, true);
@@ -74,16 +74,29 @@ public class Driver {
                        JackBlackCheck(input, game, true);
 
                if((playerOneJBAnswer && playerTwoJBAnswer) ||
-                       (!playerOneJBAnswer && !playerTwoJBAnswer) ) {
+                       (!playerOneJBAnswer && !playerTwoJBAnswer) )
+               {
                   //compares the hands move winnings to winner
                   String roundWinner = game.compareHand();
                   System.out.println(roundWinner);
-               } else if(playerOneJBAnswer) {
+               }
+               else if(playerOneJBAnswer)
+               {
                   game.playerLostRound(false);
-               } else
+               }
+               else
                      game.playerLostRound(true);
 
+               game.getP1().moveSpecialToHand();
+               game.getP2().moveSpecialToHand();
+               System.out.println(game.showPlayerCards(true));
+               System.out.println(game.showPlayerCards(false));
 
+               System.out.println("\nPlayer One's Wallet: " + game.getP1().getWallet());
+               System.out.println("Player Two's Wallet: " + game.getP2().getWallet());
+
+               game.getP1().roundReset();
+               game.getP2().roundReset();
                //check if a player has lost all their money.
                //restart the round
             }
@@ -170,13 +183,13 @@ public class Driver {
             {
                Card special = game.wildcardDecision(true, true);
                System.out.println("Player One Bombed Player Two");
-               game.getP2().addCard(special);
+               game.getP2().addSpecial(special);
             }
             else
             {
                Card special = game.wildcardDecision(false, true);
                System.out.println("Player Two Bombed Player One");
-               game.getP1().addCard(special);
+               game.getP1().addSpecial(special);
             }
          }
          else if(bombOrProtect.equalsIgnoreCase("P"))
@@ -185,13 +198,13 @@ public class Driver {
             {
                Card special = game.wildcardDecision(true, false);
                System.out.println("Player One protected themself");
-               game.getP1().addCard(special);
+               game.getP1().addSpecial(special);
             }
             else
             {
                Card special = game.wildcardDecision(false, false);
                System.out.println("Player Two protected themself");
-               game.getP2().addCard(special);
+               game.getP2().addSpecial(special);
             }
          }
          else

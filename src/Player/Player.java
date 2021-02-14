@@ -9,6 +9,7 @@ public class Player
 {
     private String name;
     public ArrayList<Card> hand;
+    public ArrayList<Card> specialCards;
     public Card bomb;
     public Card effectCard;
     public double wallet;
@@ -19,11 +20,19 @@ public class Player
     {
         this.name = playerName;
         hand = new ArrayList<>();
+        specialCards = new ArrayList<>();
         wallet = 500.00;
     }
     public void addCard(Card card) {hand.add(card);}
+    public void addSpecial(Card card) {specialCards.add(card);}
+    public void moveSpecialToHand()
+    {
+        hand.addAll(specialCards);
+    }
+
     public void addBombCard(Card bombCard){bomb = bombCard;}
 
+    public double getWallet(){return wallet;}
     public double handleWinnings(double winnings)
     {
         wallet += winnings;
@@ -57,13 +66,17 @@ public class Player
                     accumulator += cardValue;
         }
 
-        cardTotal = accumulator;
+        cardTotal += accumulator;
 
         return accumulator;
     }
     public void applyProtection()
     {
+        //TODO needs account for aces high
         effectCard = bomb;
+        int rankValue = this.bomb.getRank();
+        if(rankValue >= 10)
+            rankValue = 10;
         cardTotal = cardTotal - this.bomb.getRank();
     }
     public void bombed(Card bomb)
