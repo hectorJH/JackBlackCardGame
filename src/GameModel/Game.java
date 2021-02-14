@@ -32,14 +32,17 @@ public class Game {
         p2 = new Player(p2Name);
         cardDeck = new Deck();
         cardDeck.populateDeck();
+    }
 
-        p1.addBombCard(cardDeck.drawCard());
-        p2.addBombCard(cardDeck.drawCard());
-
+    public void startRound(){
         for (int i = 0; i < 2; i++) {
             p1.addCard(cardDeck.drawCard());
             p2.addCard(cardDeck.drawCard());
         }
+
+        p1.addBombCard(cardDeck.drawCard());
+        p2.addBombCard(cardDeck.drawCard());
+
     }
 
     public void playerHit(boolean isPlayerOne) {
