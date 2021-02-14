@@ -42,6 +42,7 @@ public class Driver {
 
             game.startRound();
 
+            System.out.println("\n--Start of Round--\n");
             //print out initial hands
             System.out.println(game.showPlayerCards(true));
             System.out.println(game.showPlayerCards(false));
@@ -53,11 +54,16 @@ public class Driver {
             p1_lost = game.takeBets(true);
             p2_lost = game.takeBets(false);
 
-            if(p1_lost | p2_lost)
-            {
+            if(p1_lost) {
+               System.out.println("Player One does not have enough funds to play.");
                endGame = true;
             }
-            else {
+            else if(p2_lost) {
+               System.out.println("Player Two does not have enough funds to play");
+               endGame = true;
+            }
+            else
+            {
                //handle player hitting
                playerHits(input, game);
 
@@ -93,7 +99,7 @@ public class Driver {
                System.out.println(game.showPlayerCards(false));
 
                System.out.println("\nPlayer One's Wallet: " + game.getP1().getWallet());
-               System.out.println("Player Two's Wallet: " + game.getP2().getWallet());
+               System.out.println("Player Two's Wallet: " + game.getP2().getWallet() +"\n");
 
                game.getP1().roundReset();
                game.getP2().roundReset();
@@ -104,7 +110,7 @@ public class Driver {
          }while(!endGame);
 
 
-         System.out.print("Would you like to play again? ");
+         System.out.print("\nWould you like to play again? (Y/N)");
          rematch = input.nextLine();
 
       }while (rematch.equalsIgnoreCase("Y"));
@@ -115,10 +121,10 @@ public class Driver {
    {
       String player1;
       String player2;
-      System.out.print("Enter player 1's name: ");
+      System.out.print("\nEnter player 1's name: ");
       player1 = input.nextLine();
 
-      System.out.print("Enter player 2's name: ");
+      System.out.print("\nEnter player 2's name: ");
       player2 = input.nextLine();
 
       System.out.print("Enter buy in amount: ");
@@ -126,7 +132,7 @@ public class Driver {
       input.nextLine();
 
       String response;
-      System.out.print("Are aces high or low? (H for High, L for low): ");
+      System.out.print("\nAre aces high or low? (H for High, L for low): ");
       response = input.nextLine();
 
       if(response.equalsIgnoreCase("H"))
@@ -143,7 +149,7 @@ public class Driver {
       for(int i = 0; i < 2; i++)
       {
          do{
-            System.out.print("Player " + (i + 1) + " do you want to hit? " +
+            System.out.print("\nPlayer " + (i + 1) + " do you want to hit? " +
                     "(y/n) ");
             String result = input.nextLine();
 
@@ -175,7 +181,7 @@ public class Driver {
       String bombOrProtect;
       for(int i = 0; i < 2; i++)
       {
-         System.out.print("Player " + i + " bomb or protect (B/P): ");
+         System.out.print("\nPlayer " + i + " bomb or protect (B/P): ");
          bombOrProtect = input.nextLine();
          if(bombOrProtect.equalsIgnoreCase("B"))
          {

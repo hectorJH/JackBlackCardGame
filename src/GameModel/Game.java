@@ -64,12 +64,12 @@ public class Game {
         if(isPlayerOne)
         {
             if(isBomb) {
-                p2.bombed(p1.getBombCard());
+                p2.bombed(p1.getBombCard(), aceHigh);
                 return p2.effectCard;
             }
             else
             {
-                p1.applyProtection();
+                p1.applyProtection(aceHigh);
                 return p1.effectCard;
             }
         }
@@ -77,12 +77,12 @@ public class Game {
             {
             if(isBomb)
             {
-                p1.bombed(p2.getBombCard());
+                p1.bombed(p2.getBombCard(), aceHigh);
                 return p1.effectCard;
             }
             else
             {
-                p2.applyProtection();
+                p2.applyProtection(aceHigh);
                 return p2.effectCard;
             }
         }
@@ -120,12 +120,15 @@ public class Game {
         System.out.println(showPlayerCards(false));
         System.out.println("Player Two's Total: " + getP2().getCardTotal());
 
-        if(!p1.getHasBeenBombed() && !p2.getHasBeenBombed()) {
+        if(!p1.getHasBeenBombed() && !p2.getHasBeenBombed())
+        {
             if (p1RoundResult < p2RoundResult)
                 return playerLostRound(false);
             else
                 return playerLostRound(true);
-        } else {
+        }
+        else
+        {
             if(p1.getCardTotal() > p2.getCardTotal())
                 return playerLostRound(false);
             else
@@ -169,8 +172,6 @@ public class Game {
     }
 
     public String playerLostRound(boolean isPlayerOne) {
-        p1.roundReset();;
-        p2.roundReset();
 
         if (isPlayerOne) {
             p2.handleWinnings(moneyPot);
