@@ -52,11 +52,9 @@ public class Driver {
             //take bets from both players
             game.takeBets(true);
             game.takeBets(false);
-
-<<<<<<< Updated upstream
             //handle player hitting
             playerHits(input, game);
-=======
+
 
             //handles players hitting
             boolean hit = true;
@@ -77,26 +75,22 @@ public class Driver {
 
                } while (hit);
             }
->>>>>>> Stashed changes
-
             //print out current hands
             System.out.println(game.showPlayerCards(true));
             System.out.println(game.showPlayerCards(false));
 
-<<<<<<< Updated upstream
             //how do users want to use their bomb cards
             handleBombs(input,game);
 
             //compares the hands move winnings to winner
             String roundWinner = game.compareHand();
             System.out.println(roundWinner);
-=======
 
             for (int i = 0; i < 2; i++) {
                System.out.println("");
             }
             //how to use the bomb.
->>>>>>> Stashed changes
+
 
             //check if a player has lost all their money.
             //restart the round
@@ -138,7 +132,6 @@ public class Driver {
          return new Game(player1, player2, buyin, false);
    }
 
-<<<<<<< Updated upstream
    public static void playerHits(Scanner input, Game game)
    {
       //handles players hitting
@@ -164,8 +157,7 @@ public class Driver {
          }while(hit);
       }
    }
-   public static void handleBombs(Scanner input, Game game)
-   {
+   public static void handleBombs(Scanner input, Game game) {
       String bombOrProtect;
       for(int i = 0; i < 2; i++)
       {
@@ -185,14 +177,10 @@ public class Driver {
             else
                game.wildcardDecision(false, false);
          }
-
       }
    }
-   public static void helloPlayers()
-   {
-=======
-   public static void helloPlayers() {
->>>>>>> Stashed changes
+
+   public static void helloPlayers(){
       System.out.println("\nWelcome to Jack Black\n");
       System.out.println("Explain Rules here");
    }
@@ -205,14 +193,14 @@ public class Driver {
 
       if (player == 1) {
          if (input.toLowerCase().charAt(0) == 'y')
-            game.wildCardDecision(true, true);
+            game.wildcardDecision(true, true);
          else
-            game.wildCardDecision(true, false);
+            game.wildcardDecision(true, false);
       } else {
          if (input.toLowerCase().charAt(0) == 'y')
-            game.wildCardDecision(false, true);
+            game.wildcardDecision(false, true);
          else
-            game.wildCardDecision(false, false);
+            game.wildcardDecision(false, false);
       }
    }
 }
