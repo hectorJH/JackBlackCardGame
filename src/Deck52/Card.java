@@ -12,6 +12,7 @@ public class Card {
 
    @Override
    public String toString() {
+      System.out.println("Hello from cards.");
       return this.rank + " " + this.suit;
    }
 }
