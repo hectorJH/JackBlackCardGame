@@ -76,6 +76,10 @@ public class Game {
         return buyInAmount;
     }
 
+    public String askJBQuestion(){
+       return jb.getQuestion();
+    }
+
     public String compareHand(){
         double p1RoundResult = Math.abs(target - p1.getPlayerCount(aceHigh));
         double p2RoundResult = Math.abs(target - p2.getPlayerCount(aceHigh));
@@ -101,12 +105,11 @@ public class Game {
     }
 
     /**
-     * Used at the beginning of the round
-     *
+     * False = winner not found, true = winner foound
      * @param isPlayerOne
      * @return
      */
-    public String takeBets(boolean isPlayerOne) {
+    public boolean takeBets(boolean isPlayerOne) {
         if (isPlayerOne) {
             try {
                 p1.placeBet(buyInAmount);
@@ -114,7 +117,7 @@ public class Game {
             } catch (Exception e) {
                 e.getMessage();
                 winnerFound = true;
-                return playerLostGame(isPlayerOne);
+                System.out.println(playerLostGame(isPlayerOne));
             }
         } else {
             try {
@@ -123,10 +126,11 @@ public class Game {
             } catch (Exception e) {
                 e.getMessage();
                 winnerFound = true;
-                return playerLostGame(isPlayerOne);
+                System.out.println(playerLostGame(isPlayerOne));
+
             }
         }
-        return "\nBets have been placed";
+        return winnerFound;
     }
 
     String playerLostRound(boolean isPlayerOne) {
